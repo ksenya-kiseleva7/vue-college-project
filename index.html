@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Приложение</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+</head>
+<body>
+<div id="app">
+    <h1>Группа: {{ group }}</h1>
+    <h2>Разработчик: {{ getDeveloperNameInUpperCase() }}</h2>
+    <h2>Личный кабинет пользователя</h2>
+    <b>Имя:</b> <p>{{ user.name }}</p>
+    <b>Логин:</b> <p>{{ user.login }}</p>
+    <b>E-mail:</b> <p>{{ user.email }}</p>
+    <b>Пароль:</b> <p>{{ user.password }}</p>
+
+    <h2>Сегодня: {{ formattedTodayDate }}</h2>
+    <h2>Сегодня: {{ formattedTodayDate }}, а завтра {{ getTomorrowDate() }}</h2>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
