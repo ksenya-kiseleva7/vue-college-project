@@ -2,54 +2,71 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vue.js Пример</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+    <title>Заказ</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="users.js"></script>
+    <script src="orders.js"></script>
 </head>
 <body>
-<header>
-    <h1>Проект с Vue.js</h1>
-</header>
-
-<!-- Компонент для автора -->
-<section id="author-app">
-    <h2>Информация об Авторе</h2>
-    <p>Имя: {{ author.name }}</p>
-    <p>Возраст: {{ author.age }}</p>
-</section>
-
-<!-- Компонент для книг -->
-<section id="books-app">
-    <h2>Книги Автора</h2>
+<div id="app">
+    <h1>Информация о заказчике</h1>
+    <p>Фамилия: {{ customer.surname }}</p>
+    <p>Имя: {{ customer.name }}</p>
+    <p>Логин: {{ customer.login }}</p>
+    <p>Email: {{ customer.email }}</p>
+</div>
+<div id="app2">
+    <h2>Товары</h2>
+    <h1>Информация о заказе</h1>
+    <p>Дата оформления: {{ order.date }}</p>
+    <p>Накладная: {{ order.invoice }}</p>
+    <p>Оформил: {{ order.processedBy }}</p>
     <ul>
-        <li v-for="book in books" :key="book.id">{{ book.title }}</li>
-    </ul>
-</section>
-
-<!-- Компонент с хуками -->
-<section id="hooks-app">
-    <h2>Работа с Хуками</h2>
-    <p>Проверьте консоль для подробной информации о этапах жизненного цикла компонентов.</p>
-</section>
-
-<!-- Компонент для данных пользователя -->
-<section id="external-data-user">
-    <h2>Пользователь</h2>
-    <p>Имя: {{ user.name }}</p>
-    <p>Возраст: {{ user.age }}</p>
-</section>
-
-<!-- Компонент для списка заказов -->
-<section id="external-data-order">
-    <h2>Список Заказов</h2>
-    <ul>
-        <li v-for="order in orders" :key="order.id">
-            Идентификатор заказа: {{ order.id }}
+        <li v-for="item in order.items" :key="item.id" style="list-style: none; margin-bottom: 20px;">
+            <hr width="100%" size="2">
+            <strong>{{ item.title }}</strong><br>
+            Видеокарта: {{ item.gpu }}<br>
+            Процессор: {{ item.cpu }}<br>
+            Ядра: {{ item.cpu_cores }}<br>
+            Память: {{ item.ram }}<br>
+            Диагональ: {{ item.diagonal }}<br>
+            Цена: {{ item.price }} ₽
+            <hr width="100%" size="2">
         </li>
     </ul>
-</section>
+    <h2>Итого: {{ totalPrice }} ₽</h2>
+</div>
+<script>
 
-<script src="script.js"></script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                customer: user,
+            };
+        },
+    });
+
+    app.mount('#app');
+
+    const app2 = Vue.createApp({
+        data() {
+            return {
+                order: {
+                    date: orders.vendor.data,
+                    invoice: orders.vendor.bill,
+                    processedBy: orders.vendor.name,
+                    items: orders.product
+                }
+            };
+        },
+        computed: {
+            totalPrice() {
+                return this.order.items.reduce((total, item) => total + item.price, 0);
+            }
+        }
+    });
+
+    app2.mount('#app2');
+</script>
 </body>
 </html>
