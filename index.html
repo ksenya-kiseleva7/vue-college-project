@@ -3,32 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Задания</title>
+    <title>Vue.js Пример</title>
+    <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
 </head>
 <body>
-<div id="app">
+<header>
+    <h1>Проект с Vue.js</h1>
+</header>
 
-    <!-- Задание 1 -->
-    <h2>Сумма элементов массива</h2>
-    <p>Массив: {{ arr }}</p>
-    <p>Сумма элементов: {{ sumOfArray }}</p>
+<!-- Компонент для автора -->
+<section id="author-app">
+    <h2>Информация об Авторе</h2>
+    <p>Имя: {{ author.name }}</p>
+    <p>Возраст: {{ author.age }}</p>
+</section>
 
-    <!-- Задание 2 -->
-    <h2>Счетчик</h2>
-    <button @click="decreaseCounter">Уменьшить</button>
-    <button @click="increaseCounter">Увеличить</button>
-    <p>Текущее значение счетчика: {{ counter }}</p>
+<!-- Компонент для книг -->
+<section id="books-app">
+    <h2>Книги Автора</h2>
+    <ul>
+        <li v-for="book in books" :key="book.id">{{ book.title }}</li>
+    </ul>
+</section>
 
-    <!-- Задание 3 -->
-    <h2>Форма отправки сообщения</h2>
-    <form @submit.prevent="sendMessage">
-        <input v-model="newMessage" type="text" placeholder="Введите сообщение" />
-        <button type="submit">Отправить</button>
-    </form>
-    <p>Отправленное сообщение: {{ sentMessage }}</p>
+<!-- Компонент с хуками -->
+<section id="hooks-app">
+    <h2>Работа с Хуками</h2>
+    <p>Проверьте консоль для подробной информации о этапах жизненного цикла компонентов.</p>
+</section>
 
-</div>
+<!-- Компонент для данных пользователя -->
+<section id="external-data-user">
+    <h2>Пользователь</h2>
+    <p>Имя: {{ user.name }}</p>
+    <p>Возраст: {{ user.age }}</p>
+</section>
+
+<!-- Компонент для списка заказов -->
+<section id="external-data-order">
+    <h2>Список Заказов</h2>
+    <ul>
+        <li v-for="order in orders" :key="order.id">
+            Идентификатор заказа: {{ order.id }}
+        </li>
+    </ul>
+</section>
 
 <script src="script.js"></script>
 </body>
