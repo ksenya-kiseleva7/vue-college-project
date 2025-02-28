@@ -3,64 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Случайное изображение</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <title>Заказ</title>
 </head>
 <body>
-<div id="app">
-    <h2>Случайное изображение</h2>
-    <img :src="randomImage" alt="Случайное изображение" />
-</div>
-
-<script>
-    new Vue({
-        el: '#app',
-        data: {
-            imageFiles: [
-                'image1.png',
-                'image2.png',
-                'image3.png'
-            ]
-        },
-        computed: {
-            randomImage: function() {
-                const randomIndex = Math.floor(Math.random() * this.imageFiles.length);
-                return this.imageFiles[randomIndex];
-            }
-        }
-    });
-</script>
-
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        padding: 0;
-    }
-
-    #app {
-        text-align: center;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    h2 {
-        color: #333;
-        margin-bottom: 20px;
-    }
-
-    img {
-        max-width: 250px;
-        height: auto;
-        border-radius: 8px;
-    }
-</style>
+<script type="module" src="index.js"></script>
 </body>
 </html>
