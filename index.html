@@ -2,71 +2,39 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Заказ</title>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="users.js"></script>
-    <script src="orders.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Детали заказа</title>
+    <!-- Подключаем Vue.js из CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 </head>
 <body>
 <div id="app">
-    <h1>Информация о заказчике</h1>
-    <p>Фамилия: {{ customer.surname }}</p>
-    <p>Имя: {{ customer.name }}</p>
-    <p>Логин: {{ customer.login }}</p>
-    <p>Email: {{ customer.email }}</p>
-</div>
-<div id="app2">
-    <h2>Товары</h2>
-    <h1>Информация о заказе</h1>
-    <p>Дата оформления: {{ order.date }}</p>
-    <p>Накладная: {{ order.invoice }}</p>
-    <p>Оформил: {{ order.processedBy }}</p>
+    <h2>Детали заказа</h2>
     <ul>
-        <li v-for="item in order.items" :key="item.id" style="list-style: none; margin-bottom: 20px;">
-            <hr width="100%" size="2">
-            <strong>{{ item.title }}</strong><br>
-            Видеокарта: {{ item.gpu }}<br>
-            Процессор: {{ item.cpu }}<br>
-            Ядра: {{ item.cpu_cores }}<br>
-            Память: {{ item.ram }}<br>
-            Диагональ: {{ item.diagonal }}<br>
-            Цена: {{ item.price }} ₽
-            <hr width="100%" size="2">
-        </li>
+        <li><strong>ID:</strong> {{ orders[0] }}</li>
+        <li><strong>Название:</strong> {{ orders[1] }}</li>
+        <li><strong>Бренд:</strong> {{ orders[2] }}</li>
+        <li><strong>Цвет:</strong> {{ orders[3] }}</li>
+        <li><strong>Происхождение:</strong> {{ orders[4] }}</li>
+        <li><strong>Наличие:</strong> {{ orders[5] }}</li>
+        <li><strong>Размер:</strong> {{ orders[6] }}</li>
+        <li><strong>Цена:</strong> {{ orders[7] }}</li>
+        <li><strong>Изображение:</strong></li>
+        <li><img :src="orders[8]" alt="Изображение товара"/></li>
     </ul>
-    <h2>Итого: {{ totalPrice }} ₽</h2>
 </div>
+
 <script>
+    // Данные заказа
+    var orders = ['1', 'Утепленная стеганая куртка', 'MARCO DI RADI', 'Синий', 'Китай', 'Есть', '52', '25.590', '6734671220.png'];
 
-    const app = Vue.createApp({
-        data() {
-            return {
-                customer: user,
-            };
-        },
-    });
-
-    app.mount('#app');
-
-    const app2 = Vue.createApp({
-        data() {
-            return {
-                order: {
-                    date: orders.vendor.data,
-                    invoice: orders.vendor.bill,
-                    processedBy: orders.vendor.name,
-                    items: orders.product
-                }
-            };
-        },
-        computed: {
-            totalPrice() {
-                return this.order.items.reduce((total, item) => total + item.price, 0);
-            }
+    // Создаем новый экземпляр Vue
+    new Vue({
+        el: '#app',
+        data: {
+            orders: orders
         }
     });
-
-    app2.mount('#app2');
 </script>
 </body>
 </html>
