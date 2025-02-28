@@ -1,54 +1,62 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Цитаты</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-    <style>
-        .quote {
-            display: none;
-        }
-
-        .quote.active {
-            display: block;
-        }
-    </style>
+    <meta charset="utf-8">
+    <title>JavaScript фреймворк Vue.JS 3.0</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+   <script src="orders.js"></script>
 </head>
 <body>
-<div id="app">
-    <h2>Выбери цитату своего настроения 😉</h2>
+<h1 align="center">Основы VueJS</h1>
 
-    <label>
-        <input type="radio" name="quote" value="dovlatov" v-model="selectedQuote"> Довлатов
-    </label><br>
-    <label>
-        <input type="radio" name="quote" value="chekhov" v-model="selectedQuote"> Чехов
-    </label><br>
-    <label>
-        <input type="radio" name="quote" value="erofeev" v-model="selectedQuote"> Ерофеев
-    </label><br>
+<div id="order">
+    <h1>Заказ</h1>
+    <hr>
+    <h3>Название: {{ orders.product[0].title }}</h3>
+    <span>Видеокарта: {{ orders.product[0].gpu }}</span><br/>
+    <span>Процессор: {{ orders.product[0].cpu }}</span><br/>
+    <span>Количество ядер: {{ orders.product[0].cpu_cores }}</span><br/>
+    <span>Объем оперативной памяти: {{ orders.product[0].ram }}</span><br/>
+    <span>Диагональ экрана: {{ orders.product[0].diagonal }}</span><br/>
+    <span>Цена:<b> {{ orders.product[0].price.toFixed(3) }} </b></span><br/>
+    <hr>
 
-    <div :class="{'quote': true, 'active': selectedQuote === 'dovlatov'}">
-        <p>Нормально идти в гости, когда зовут. Ужасно идти в гости, когда не зовут. Однако самое лучшее — это когда зовут, а ты не идешь.</p>
-    </div>
+    <h3>Название: {{ orders.product[1].title }}</h3>
+    <span>Видеокарта: {{ orders.product[1].gpu }}</span><br/>
+    <span>Процессор: {{ orders.product[1].cpu }}</span><br/>
+    <span>Количество ядер: {{ orders.product[1].cpu_cores }}</span><br/>
+    <span>Объем оперативной памяти: {{ orders.product[1].ram }}</span><br/>
+    <span>Диагональ экрана: {{ orders.product[1].diagonal }}</span><br/>
+    <span>Цена:<b> {{ orders.product[1].price.toFixed(3) }} </b></span><br/>
+    <hr>
 
-    <div :class="{'quote': true, 'active': selectedQuote === 'chekhov'}">
-        <p>Если человек не курит и не пьёт, поневоле задумаешься, уж не сволочь ли он?</p>
-    </div>
-
-    <div :class="{'quote': true, 'active': selectedQuote === 'erofeev'}">
-        <p>Если человек умен и скучен, он не опустится до легкомыслия. А если он легкомысленен да умен – он скучным быть себе не позволит.</p>
-    </div>
+    <p>Скидка: {{ orders.vendor.discount }} %<br>
+        <b>Итого: {{ getTotalPrice() }} ₽</b> <br>
+        <b>Итого (с учетом скидки): {{ getTotalPriceDiscount() }} ₽</b>
 </div>
 
 <script>
-    new Vue({
-        el: '#app',
-        data: {
-            selectedQuote: '' // По умолчанию ни одна цитата не выбрана
+    var vm = Vue.createApp({
+        data() {
+            return {
+                orders: orders
+            };
+        },
+        methods: {
+            // Итоговая цена
+            getTotalPrice() {
+                const total = this.orders.product.reduce((sum, item) => sum + item.price, 0);
+                return total.toFixed(3);
+            },
+            // Итоговая цена со скидкой
+            getTotalPriceDiscount() {
+                const total = this.orders.product.reduce((sum, item) => sum + item.price, 0);
+                const discount = this.orders.vendor.discount;
+                const discountedTotal = total - (total * (discount / 100));
+                return discountedTotal.toFixed(3);
+            }
         }
-    });
+    }).mount("#order");
 </script>
 </body>
 </html>
