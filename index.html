@@ -1,11 +1,47 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Заказ</title>
+    <meta charset="utf-8">
+    <title>JavaScript фреймворк Vue.JS 3.0</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body>
-<script type="module" src="index.js"></script>
+
+<h1>Основы VueJS. Директивы</h1>
+
+<div id="con">
+    <p><a id="id-1" class="class-1" href="http://www.yandex.ru" v-on:click="fGoLink">www.yandex.ru</a></p>
+
+    <p><a id="id-2" class="class-2" href="http://www.google.com/" v-on:click="fGoLink">www.google.com</a></p>
+
+    <p><a id="id-3" class="class-3" href="http://www.mail.ru/" v-on:click="fGoLink">www.mail.ru</a></p>
+</div>
+
+<script>
+    const app = Vue.createApp({
+        methods: {
+            fGoLink(event) {
+                const element = event.target; // Ссылка, по которой кликнули
+                const id = element.id;
+                const className = element.className;
+                const href = element.href;
+
+                // Логирование атрибутов ссылки
+                console.log(`ID: ${id}`);
+                console.log(`Class: ${className}`);
+                console.log(`Href: ${href}`);
+
+                // Если не используется модификатор prevent, предотвращаем переход
+                if (!event.defaultPrevented) {
+                    event.preventDefault();
+                    console.log("Переход по ссылке предотвращён.");
+                }
+            }
+        }
+    });
+
+    app.mount('#con');
+</script>
+
 </body>
 </html>
