@@ -1,47 +1,54 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="utf-8">
-    <title>JavaScript фреймворк Vue.JS 3.0</title>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Цитаты</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <style>
+        .quote {
+            display: none;
+        }
+
+        .quote.active {
+            display: block;
+        }
+    </style>
 </head>
 <body>
+<div id="app">
+    <h2>Выбери цитату своего настроения 😉</h2>
 
-<h1>Основы VueJS. Директивы</h1>
+    <label>
+        <input type="radio" name="quote" value="dovlatov" v-model="selectedQuote"> Довлатов
+    </label><br>
+    <label>
+        <input type="radio" name="quote" value="chekhov" v-model="selectedQuote"> Чехов
+    </label><br>
+    <label>
+        <input type="radio" name="quote" value="erofeev" v-model="selectedQuote"> Ерофеев
+    </label><br>
 
-<div id="con">
-    <p><a id="id-1" class="class-1" href="http://www.yandex.ru" v-on:click="fGoLink">www.yandex.ru</a></p>
+    <div :class="{'quote': true, 'active': selectedQuote === 'dovlatov'}">
+        <p>Нормально идти в гости, когда зовут. Ужасно идти в гости, когда не зовут. Однако самое лучшее — это когда зовут, а ты не идешь.</p>
+    </div>
 
-    <p><a id="id-2" class="class-2" href="http://www.google.com/" v-on:click="fGoLink">www.google.com</a></p>
+    <div :class="{'quote': true, 'active': selectedQuote === 'chekhov'}">
+        <p>Если человек не курит и не пьёт, поневоле задумаешься, уж не сволочь ли он?</p>
+    </div>
 
-    <p><a id="id-3" class="class-3" href="http://www.mail.ru/" v-on:click="fGoLink">www.mail.ru</a></p>
+    <div :class="{'quote': true, 'active': selectedQuote === 'erofeev'}">
+        <p>Если человек умен и скучен, он не опустится до легкомыслия. А если он легкомысленен да умен – он скучным быть себе не позволит.</p>
+    </div>
 </div>
 
 <script>
-    const app = Vue.createApp({
-        methods: {
-            fGoLink(event) {
-                const element = event.target; // Ссылка, по которой кликнули
-                const id = element.id;
-                const className = element.className;
-                const href = element.href;
-
-                // Логирование атрибутов ссылки
-                console.log(`ID: ${id}`);
-                console.log(`Class: ${className}`);
-                console.log(`Href: ${href}`);
-
-                // Если не используется модификатор prevent, предотвращаем переход
-                if (!event.defaultPrevented) {
-                    event.preventDefault();
-                    console.log("Переход по ссылке предотвращён.");
-                }
-            }
+    new Vue({
+        el: '#app',
+        data: {
+            selectedQuote: '' // По умолчанию ни одна цитата не выбрана
         }
     });
-
-    app.mount('#con');
 </script>
-
 </body>
 </html>
