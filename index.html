@@ -7,42 +7,30 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 </head>
 <body>
+<h1>Управление приложением</h1>
+
 <div id="app">
-    <div ref="con">
-        Фамилия <input v-model="person.surname" /><p>
-        Имя <input v-model="person.name" /><p>
-        Отчество <input v-model="person.patronymic" /><p>
-        Образование <input v-model="person.edu" /><p>
-        Стаж <input v-model="person.experience" /><p>
-        <button @click="addData()">Добавить данные</button>
-    </div>
+    <p><input @click="fClick($event)" type="radio" name="img" id="img1"> Я загадочный</p>
+    <p><input @click="fClick($event)" type="radio" name="img" id="img2"> Я безбашенный</p>
+    <p><input @click="fClick($event)" type="radio" name="img" id="img3"> Я влюбленный</p>
+    <p><input @click="fClick($event)" type="radio" name="img" id="img4"> Я грустный</p>
+    <p><input @click="fClick($event)" type="radio" name="img" id="img5"> Я стеснительный</p>
+    <img v-bind:src="path" alt="Выбранное изображение" width="300">
 </div>
 
 <script>
     new Vue({
         el: "#app",
         data: {
-            person: {
-                surname: '',
-                name: '',
-                patronymic: '',
-                edu: '',
-                experience: ''
-            }
+            path: ''
         },
         methods: {
-            addData() {
-                // Создаем содержимое для вставки
-                const content = `
-            <p>Фамилия: ${this.person.surname}</p>
-            <p>Имя: ${this.person.name}</p>
-            <p>Отчество: ${this.person.patronymic}</p>
-            <p>Образование: ${this.person.edu}</p>
-            <p>Стаж: ${this.person.experience}</p>
-          `;
+            fClick(event) {
+                // Получаем id нажатой радио-кнопки
+                const id = event.target.id;
 
-                // Заменяем содержимое блока ref="con" на данные
-                this.$refs.con.innerHTML = content;
+                // Устанавливаем путь к соответствующему изображению
+                this.path = `${id}.jpg`;
             }
         }
     });
