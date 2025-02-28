@@ -1,62 +1,51 @@
-<!doctype html>
-<html lang="ru">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>JavaScript фреймворк Vue.JS 3.0</title>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-   <script src="orders.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление приложением</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 </head>
 <body>
-<h1 align="center">Основы VueJS</h1>
-
-<div id="order">
-    <h1>Заказ</h1>
-    <hr>
-    <h3>Название: {{ orders.product[0].title }}</h3>
-    <span>Видеокарта: {{ orders.product[0].gpu }}</span><br/>
-    <span>Процессор: {{ orders.product[0].cpu }}</span><br/>
-    <span>Количество ядер: {{ orders.product[0].cpu_cores }}</span><br/>
-    <span>Объем оперативной памяти: {{ orders.product[0].ram }}</span><br/>
-    <span>Диагональ экрана: {{ orders.product[0].diagonal }}</span><br/>
-    <span>Цена:<b> {{ orders.product[0].price.toFixed(3) }} </b></span><br/>
-    <hr>
-
-    <h3>Название: {{ orders.product[1].title }}</h3>
-    <span>Видеокарта: {{ orders.product[1].gpu }}</span><br/>
-    <span>Процессор: {{ orders.product[1].cpu }}</span><br/>
-    <span>Количество ядер: {{ orders.product[1].cpu_cores }}</span><br/>
-    <span>Объем оперативной памяти: {{ orders.product[1].ram }}</span><br/>
-    <span>Диагональ экрана: {{ orders.product[1].diagonal }}</span><br/>
-    <span>Цена:<b> {{ orders.product[1].price.toFixed(3) }} </b></span><br/>
-    <hr>
-
-    <p>Скидка: {{ orders.vendor.discount }} %<br>
-        <b>Итого: {{ getTotalPrice() }} ₽</b> <br>
-        <b>Итого (с учетом скидки): {{ getTotalPriceDiscount() }} ₽</b>
+<div id="app">
+    <div ref="con">
+        Фамилия <input v-model="person.surname" /><p>
+        Имя <input v-model="person.name" /><p>
+        Отчество <input v-model="person.patronymic" /><p>
+        Образование <input v-model="person.edu" /><p>
+        Стаж <input v-model="person.experience" /><p>
+        <button @click="addData()">Добавить данные</button>
+    </div>
 </div>
 
 <script>
-    var vm = Vue.createApp({
-        data() {
-            return {
-                orders: orders
-            };
+    new Vue({
+        el: "#app",
+        data: {
+            person: {
+                surname: '',
+                name: '',
+                patronymic: '',
+                edu: '',
+                experience: ''
+            }
         },
         methods: {
-            // Итоговая цена
-            getTotalPrice() {
-                const total = this.orders.product.reduce((sum, item) => sum + item.price, 0);
-                return total.toFixed(3);
-            },
-            // Итоговая цена со скидкой
-            getTotalPriceDiscount() {
-                const total = this.orders.product.reduce((sum, item) => sum + item.price, 0);
-                const discount = this.orders.vendor.discount;
-                const discountedTotal = total - (total * (discount / 100));
-                return discountedTotal.toFixed(3);
+            addData() {
+                // Создаем содержимое для вставки
+                const content = `
+            <p>Фамилия: ${this.person.surname}</p>
+            <p>Имя: ${this.person.name}</p>
+            <p>Отчество: ${this.person.patronymic}</p>
+            <p>Образование: ${this.person.edu}</p>
+            <p>Стаж: ${this.person.experience}</p>
+          `;
+
+                // Заменяем содержимое блока ref="con" на данные
+                this.$refs.con.innerHTML = content;
             }
         }
-    }).mount("#order");
+    });
 </script>
 </body>
 </html>
