@@ -3,38 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Детали заказа</title>
-    <!-- Подключаем Vue.js из CDN -->
+    <title>Случайное изображение</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 </head>
 <body>
 <div id="app">
-    <h2>Детали заказа</h2>
-    <ul>
-        <li><strong>ID:</strong> {{ orders[0] }}</li>
-        <li><strong>Название:</strong> {{ orders[1] }}</li>
-        <li><strong>Бренд:</strong> {{ orders[2] }}</li>
-        <li><strong>Цвет:</strong> {{ orders[3] }}</li>
-        <li><strong>Происхождение:</strong> {{ orders[4] }}</li>
-        <li><strong>Наличие:</strong> {{ orders[5] }}</li>
-        <li><strong>Размер:</strong> {{ orders[6] }}</li>
-        <li><strong>Цена:</strong> {{ orders[7] }}</li>
-        <li><strong>Изображение:</strong></li>
-        <li><img :src="orders[8]" alt="Изображение товара"/></li>
-    </ul>
+    <h2>Случайное изображение</h2>
+    <img :src="randomImage" alt="Случайное изображение" />
 </div>
 
 <script>
-    // Данные заказа
-    var orders = ['1', 'Утепленная стеганая куртка', 'MARCO DI RADI', 'Синий', 'Китай', 'Есть', '52', '25.590', '6734671220.png'];
-
-    // Создаем новый экземпляр Vue
     new Vue({
         el: '#app',
         data: {
-            orders: orders
+            imageFiles: [
+                'image1.png',
+                'image2.png',
+                'image3.png'
+            ]
+        },
+        computed: {
+            randomImage: function() {
+                const randomIndex = Math.floor(Math.random() * this.imageFiles.length);
+                return this.imageFiles[randomIndex];
+            }
         }
     });
 </script>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+    }
+
+    #app {
+        text-align: center;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    img {
+        max-width: 250px;
+        height: auto;
+        border-radius: 8px;
+    }
+</style>
 </body>
 </html>
