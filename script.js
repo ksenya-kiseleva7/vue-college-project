@@ -1,36 +1,29 @@
 const app = Vue.createApp({
     data() {
         return {
-            // Задание 1
-            arr: [1, 2, 3],
-            // Задание 2
-            counter: 0,
-            // Задание 3
-            newMessage: "",
-            sentMessage: "",
+            arr: [1, 2, 3, 4, 5],  // Пример массива для первого задания
+            counter: 0,            // Счетчик для второго задания
+            newMessage: '',        // Входное сообщение для третьего задания
+            sentMessage: ''        // Отправляемое сообщение для отображения
         };
     },
     computed: {
-        // Сумма элементов массива (задача 1)
         sumOfArray() {
-            return this.arr.reduce((sum, num) => sum + num, 0);
-        },
+            return this.arr.reduce((sum, num) => sum + num, 0); // Сумма элементов массива
+        }
     },
     methods: {
-        // Увеличение и уменьшение счетчика (задача 2)
         increaseCounter() {
-            this.counter += 3;
+            this.counter++; // Увеличить счетчик
         },
         decreaseCounter() {
-            this.counter -= 4;
+            this.counter--; // Уменьшить счетчик
         },
-
-        // Отправка сообщения (задача 3)
         sendMessage() {
-            this.sentMessage = this.newMessage;
-            this.newMessage = ""; // Очистка после отправки
-        },
-    },
+            this.sentMessage = this.newMessage; // Установить отправленное сообщение
+            this.newMessage = ''; // Очистить поле ввода
+        }
+    }
 });
 
-app.mount("#app");
+app.mount('#app');
