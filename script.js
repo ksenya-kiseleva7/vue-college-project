@@ -1,38 +1,29 @@
 const app = Vue.createApp({
     data() {
         return {
-            group: "ИСпВ-22-1",
-            developer: "Киселёва Ксения Сергеевна",
-            user: {
-                name: "",
-                login: "",
-                email: "",
-                password: ""
-            },
-            todayDate: new Date()
+            arr: [1, 2, 3, 4, 5],  // Пример массива для первого задания
+            counter: 0,            // Счетчик для второго задания
+            newMessage: '',        // Входное сообщение для третьего задания
+            sentMessage: ''        // Отправляемое сообщение для отображения
         };
     },
-    methods: {
-        getDeveloperNameInUpperCase() {
-            return this.developer.toUpperCase();
-        },
-        formatDate(date) {
-            const dd = String(date.getDate()).padStart(2, "0");
-            const mm = String(date.getMonth() + 1).padStart(2, "0");
-            const yyyy = date.getFullYear();
-            return `${dd}/${mm}/${yyyy}`;
-        },
-        getTomorrowDate() {
-            const tomorrow = new Date(this.todayDate);
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            return this.formatDate(tomorrow);
+    computed: {
+        sumOfArray() {
+            return this.arr.reduce((sum, num) => sum + num, 0); // Сумма элементов массива
         }
     },
-    computed: {
-        formattedTodayDate() {
-            return this.formatDate(this.todayDate);
+    methods: {
+        increaseCounter() {
+            this.counter++; // Увеличить счетчик
+        },
+        decreaseCounter() {
+            this.counter--; // Уменьшить счетчик
+        },
+        sendMessage() {
+            this.sentMessage = this.newMessage; // Установить отправленное сообщение
+            this.newMessage = ''; // Очистить поле ввода
         }
     }
 });
 
-app.mount("#app");
+app.mount('#app');
